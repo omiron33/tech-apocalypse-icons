@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const PhoneHandset = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" width="1em" height="1em" focusable="false" {...props}><path d="m6 4 4 2-2 4a12 12 0 0 0 6 6l4-2 2 4-2 4C10 20 4 14 2 6z" /></svg>;
+export default PhoneHandset;

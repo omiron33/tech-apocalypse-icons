@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const BatteryHalf = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("rect", { width: 18, height: 10, x: 2, y: 8, rx: 2 }), _jsx("rect", { width: 2, height: 4, x: 20, y: 11, rx: 1 }), _jsx("rect", { width: 3, height: 6, x: 4, y: 10, fill: "currentColor", stroke: "none", rx: 1 }), _jsx("rect", { width: 3, height: 6, x: 8, y: 10, fill: "currentColor", stroke: "none", rx: 1 })] });
+export default BatteryHalf;

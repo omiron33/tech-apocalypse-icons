@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const BeaconPulse = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("path", { d: "M12 21V9" }), _jsx("circle", { cx: 12, cy: 8, r: 1, fill: "currentColor", stroke: "none" }), _jsx("path", { d: "M8 10a4 4 0 0 1 8 0" }), _jsx("path", { d: "M6 12a6 6 0 0 1 12 0" }), _jsx("path", { d: "M4 14a8 8 0 0 1 16 0" })] });
+export default BeaconPulse;

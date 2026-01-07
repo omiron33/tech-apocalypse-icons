@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const ShieldLock = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, className: "icon icon-tabler icons-tabler-outline icon-tabler-shield-lock", viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("path", { stroke: "none", d: "M0 0h24v24H0z" }), _jsx("path", { d: "M12 3a12 12 0 0 0 8.5 3A12 12 0 0 1 12 21 12 12 0 0 1 3.5 6 12 12 0 0 0 12 3" }), _jsx("path", { d: "M11 11a1 1 0 1 0 2 0 1 1 0 1 0-2 0m1 1v2.5" })] });
+export default ShieldLock;

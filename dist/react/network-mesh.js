@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const NetworkMesh = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("circle", { cx: 6, cy: 6, r: 1.5 }), _jsx("circle", { cx: 18, cy: 6, r: 1.5 }), _jsx("circle", { cx: 6, cy: 18, r: 1.5 }), _jsx("circle", { cx: 18, cy: 18, r: 1.5 }), _jsx("path", { d: "M6 6h12M6 6v12M18 6v12M6 18h12M6 6l12 12m0-12L6 18" })] });
+export default NetworkMesh;

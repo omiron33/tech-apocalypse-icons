@@ -1,0 +1,50 @@
+{
+  "name": "tech-apocalypse-icons",
+  "version": "0.1.0",
+  "description": "Retro-futurist terminal UI icon pack (SVG + React) with a searchable preview.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./manifest.json": "./dist/manifest.json",
+    "./svgs/*": "./dist/processed/*.svg"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "keywords": [
+    "icons",
+    "svg",
+    "react",
+    "ui",
+    "retro-futurism",
+    "terminal",
+    "tech-apocalypse"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omiron33/tech-apocalypse-icons.git"
+  },
+  "homepage": "https://omiron33.github.io/tech-apocalypse-icons/",
+  "bugs": {
+    "url": "https://github.com/omiron33/tech-apocalypse-icons/issues"
+  },
+  "scripts": {
+    "build": "node ../../scripts/icons-tech-apocalypse-package.mjs",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

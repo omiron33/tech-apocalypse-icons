@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const BeaconPulse = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" width="1em" height="1em" focusable="false" {...props}><path d="M12 21V9" /><circle cx={12} cy={8} r={1} fill="currentColor" stroke="none" /><path d="M8 10a4 4 0 0 1 8 0" /><path d="M6 12a6 6 0 0 1 12 0" /><path d="M4 14a8 8 0 0 1 16 0" /></svg>;
+export default BeaconPulse;

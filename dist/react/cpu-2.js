@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const Cpu2 = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, className: "icon icon-tabler icons-tabler-outline icon-tabler-cpu-2", viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("path", { stroke: "none", d: "M0 0h24v24H0z" }), _jsx("path", { d: "M5 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" }), _jsx("path", { d: "M8 10V8h2m6 6v2h-2m-4 0H8v-2m8-4V8h-2M3 10h2m-2 4h2m5-11v2m4-2v2m7 5h-2m2 4h-2m-5 7v-2m-4 2v-2" })] });
+export default Cpu2;

@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const HeartRateMonitor = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="icon icon-tabler icons-tabler-outline icon-tabler-heart-rate-monitor" viewBox="0 0 24 24" width="1em" height="1em" focusable="false" {...props}><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm4 15h10m-8-4v4m6-4v4" /><path d="M7 10h2l2 3 2-6 1 3h3" /></svg>;
+export default HeartRateMonitor;

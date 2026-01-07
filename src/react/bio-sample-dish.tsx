@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const BioSampleDish = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" width="1em" height="1em" focusable="false" {...props}><circle cx={12} cy={12} r={8} /><path d="M8 13c1-2 3-3 4-2s3 0 4-2" /><circle cx={10} cy={10} r={1} fill="currentColor" stroke="none" /><circle cx={14} cy={14} r={1} fill="currentColor" stroke="none" /><circle cx={15} cy={11} r={1} fill="currentColor" stroke="none" /></svg>;
+export default BioSampleDish;

@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const HungerRationLow = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("rect", { width: 14, height: 13, x: 5, y: 7, rx: 2 }), _jsx("path", { d: "M7 7V5h10v2M8 17h8" }), _jsx("circle", { cx: 16, cy: 12, r: 1, fill: "currentColor", stroke: "none" }), _jsx("circle", { cx: 14, cy: 12, r: 1, fill: "currentColor", stroke: "none" })] });
+export default HungerRationLow;

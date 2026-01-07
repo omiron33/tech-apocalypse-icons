@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const ContaminationSplatter = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" width="1em" height="1em" focusable="false" {...props}><path d="M12 4c3 4 4 6 4 8a4 4 0 0 1-8 0c0-2 1-4 4-8" /><path d="M6 16c1 3 4 5 6 5s5-2 6-5" /><circle cx={5} cy={13} r={1} fill="currentColor" stroke="none" /><circle cx={19} cy={14} r={1} fill="currentColor" stroke="none" /><circle cx={8} cy={20} r={1} fill="currentColor" stroke="none" /></svg>;
+export default ContaminationSplatter;

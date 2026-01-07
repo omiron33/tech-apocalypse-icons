@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const Radar = (props) => _jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, className: "icon icon-tabler icons-tabler-outline icon-tabler-radar", viewBox: "0 0 24 24", width: "1em", height: "1em", focusable: "false", ...props, children: [_jsx("path", { stroke: "none", d: "M0 0h24v24H0z" }), _jsx("path", { d: "M21 12h-8a1 1 0 1 0-1 1v8a9 9 0 0 0 9-9" }), _jsx("path", { d: "M16 9a5 5 0 1 0-7 7" }), _jsx("path", { d: "M20.486 9A9 9 0 1 0 9.004 20.495" })] });
+export default Radar;

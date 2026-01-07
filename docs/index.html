@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tech Apocalypse Icon Pack Preview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b1511;
+        --panel: #0f1c16;
+        --border: #1b3a2a;
+        --text: #cfead7;
+        --muted: #88b59a;
+        --accent: #74f5a7;
+        --icon-size: 120px;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        background: radial-gradient(circle at top, #10261a, var(--bg));
+        color: var(--text);
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(180deg, rgba(11,21,17,0.95), rgba(11,21,17,0.75));
+        border-bottom: 1px solid var(--border);
+        padding: 16px 20px;
+        backdrop-filter: blur(6px);
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .wheel-control {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .wheel-label {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 10px;
+      }
+      .wheel-wrap {
+        position: relative;
+        width: 160px;
+        height: 160px;
+      }
+      #colorWheel {
+        border-radius: 50%;
+        display: block;
+        cursor: crosshair;
+        border: 1px solid var(--border);
+      }
+      .wheel-indicator {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #07120d;
+        box-shadow: 0 0 0 2px var(--text);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      .color-input {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        width: 48px;
+        height: 32px;
+        padding: 0;
+        border-radius: 6px;
+      }
+      .slider-control {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .slider-control input[type="range"] {
+        width: 160px;
+      }
+      .slider-value {
+        min-width: 46px;
+        text-align: right;
+        color: var(--text);
+      }
+      .resetButton {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.35);
+        color: var(--text);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .resetButton:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.5);
+      }
+      input {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 8px 10px;
+        border-radius: 6px;
+        min-width: 240px;
+      }
+      .counts {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      main {
+        padding: 20px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 14px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(21,36,28,0.9), rgba(10,20,15,0.9));
+        border-radius: 10px;
+        padding: 12px;
+        display: grid;
+        gap: 10px;
+        align-items: center;
+        justify-items: center;
+        min-height: 120px;
+        position: relative;
+      }
+      .cardActions {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        gap: 6px;
+      }
+      .cardButton {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(0, 0, 0, 0.35);
+        color: var(--muted);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 10px;
+        cursor: pointer;
+      }
+      .cardButton:hover {
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .cardButtonDanger {
+        color: #f28b82;
+        border-color: rgba(242, 139, 130, 0.4);
+      }
+      .cardButtonDanger:hover {
+        color: #ffd0cc;
+        border-color: rgba(242, 139, 130, 0.8);
+      }
+      .icon {
+        width: var(--icon-size);
+        height: var(--icon-size);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .label {
+        font-size: 22px;
+        text-align: center;
+        word-break: break-word;
+        color: var(--muted);
+      }
+      .tag {
+        display: inline-block;
+        padding: 2px 6px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-size: 10px;
+        color: var(--muted);
+        margin: 2px 2px 0 0;
+      }
+      .tags {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Tech Apocalypse Icon Pack</h1>
+        <div class="controls">
+          <input id="search" type="search" placeholder="Search icons or tags..." />
+          <div class="wheel-control">
+            <div class="wheel-label">Icon color</div>
+            <div class="wheel-wrap">
+              <canvas id="colorWheel" width="160" height="160" aria-label="Icon color wheel"></canvas>
+              <div class="wheel-indicator" id="wheelIndicator"></div>
+            </div>
+            <input id="color" class="color-input" type="color" value="#74f5a7" aria-label="Icon color picker" />
+          </div>
+          <label class="slider-control" for="size">
+            Icon size
+            <input id="size" type="range" min="60" max="200" step="4" value="120" />
+            <span id="sizeValue" class="slider-value">120px</span>
+          </label>
+          <button id="resetOverrides" class="resetButton" type="button">Reset edits</button>
+          <div class="counts" id="counts"></div>
+        </div>
+    </header>
+    <main>
+      <div class="grid" id="grid"></div>
+    </main>
+    <script>
+      const icons = [{"icon_name":"ui-health","tags":["ui","health"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/heart-pulse.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-radiation","tags":["ui","radiation"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/radiation.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-hunger","tags":["ui","hunger"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/sandwich.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-thirst","tags":["ui","thirst"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/droplet.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-fatigue","tags":["ui","fatigue"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/moon.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-armor","tags":["ui","armor"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/shield.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-weapon","tags":["ui","weapon"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/crosshair.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-map","tags":["ui","map"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/map.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-compass","tags":["ui","compass"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/compass.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-radio","tags":["ui","radio"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/radio.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-radio-tower","tags":["ui","radio","tower"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/radio-tower.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-terminal","tags":["ui","terminal"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/terminal.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-battery","tags":["ui","battery"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/battery.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-signal","tags":["ui","signal"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/signal.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-shelter","tags":["ui","shelter"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/vault.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-lock","tags":["ui","lock"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/lock.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-door","tags":["ui","door"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/door-closed-locked.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-house","tags":["ui","house"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/house.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-factory","tags":["ui","factory"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/factory.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-radar","tags":["ui","radar"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/radar.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-antenna","tags":["ui","antenna"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/antenna.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-satellite","tags":["ui","satellite"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/satellite.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-robot","tags":["ui","robot"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/bot.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-gear","tags":["ui","gear"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/cog.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-tools","tags":["ui","tools"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/wrench.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-siren","tags":["ui","siren"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/siren.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-atom","tags":["ui","atom"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/atom.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-skull","tags":["ui","skull"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/skull.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-fuel","tags":["ui","fuel"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/fuel.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"ui-flame","tags":["ui","flame"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/flame.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"hazard-radiation","tags":["hazard","radiation"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/radiation.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"shelter-door","tags":["shelter","door"],"source_url":"https://unpkg.com/lucide-static@0.562.0/icons/door-closed-locked.svg","license_summary":"ISC License (Lucide)","license_note":"ISC License (Lucide)","attribution_required":false},{"icon_name":"radioactive","tags":["radioactive"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/radioactive.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"biohazard","tags":["biohazard"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/biohazard.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"alert-triangle","tags":["alert","triangle"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/alert-triangle.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"alert-hexagon","tags":["alert","hexagon"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/alert-hexagon.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"alert-octagon","tags":["alert","octagon"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/alert-octagon.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"alert-circle","tags":["alert","circle"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/alert-circle.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"skull","tags":["skull"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/skull.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"atom","tags":["atom"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/atom.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"atom-2","tags":["atom","2"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/atom-2.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"bomb","tags":["bomb"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/bomb.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"rocket","tags":["rocket"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/rocket.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"satellite","tags":["satellite"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/satellite.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"antenna","tags":["antenna"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/antenna.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"radar","tags":["radar"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/radar.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"cpu","tags":["cpu"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/cpu.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"cpu-2","tags":["cpu","2"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/cpu-2.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-battery","tags":["circuit","battery"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-battery.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-bulb","tags":["circuit","bulb"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-bulb.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-cell","tags":["circuit","cell"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-cell.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-resistor","tags":["circuit","resistor"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-resistor.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-switch-open","tags":["circuit","switch","open"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-switch-open.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"circuit-switch-closed","tags":["circuit","switch","closed"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/circuit-switch-closed.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"server","tags":["server"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/server.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"terminal-2","tags":["terminal","2"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/terminal-2.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"scan","tags":["scan"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/scan.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"object-scan","tags":["object","scan"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/object-scan.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"line-scan","tags":["line","scan"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/line-scan.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"grid-scan","tags":["grid","scan"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/grid-scan.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"health-recognition","tags":["health","recognition"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/health-recognition.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"heart-rate-monitor","tags":["heart","rate","monitor"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/heart-rate-monitor.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"activity-heartbeat","tags":["activity","heartbeat"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/activity-heartbeat.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"droplet","tags":["droplet"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/droplet.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"droplet-half","tags":["droplet","half"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/droplet-half.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"droplet-exclamation","tags":["droplet","exclamation"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/droplet-exclamation.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"droplet-off","tags":["droplet","off"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/droplet-off.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"bottle","tags":["bottle"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/bottle.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"soup","tags":["soup"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/soup.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"bread","tags":["bread"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/bread.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"tools","tags":["tools"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/tools.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"tool","tags":["tool"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/tool.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"tools-kitchen","tags":["tools","kitchen"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/tools-kitchen.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"building-factory","tags":["building","factory"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/building-factory.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"building-warehouse","tags":["building","warehouse"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/building-warehouse.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"building-fortress","tags":["building","fortress"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/building-fortress.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"door","tags":["door"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/door.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"door-enter","tags":["door","enter"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/door-enter.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"door-exit","tags":["door","exit"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/door-exit.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"lock","tags":["lock"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/lock.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"key","tags":["key"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/key.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"shield-lock","tags":["shield","lock"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/shield-lock.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"shield-check","tags":["shield","check"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/shield-check.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"shield-x","tags":["shield","x"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/shield-x.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"gas-station","tags":["gas","station"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/gas-station.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"face-mask","tags":["face","mask"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/face-mask.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"robot","tags":["robot"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/robot.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"robot-face","tags":["robot","face"],"source_url":"https://unpkg.com/@tabler/icons@3.36.1/icons/outline/robot-face.svg","license_summary":"MIT License (Tabler Icons)","license_note":"MIT License (Tabler Icons)","attribution_required":false},{"icon_name":"ai-inference","tags":["technology","ai","inference"],"source_url":"local://generated/ai-inference.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"ai-training","tags":["technology","ai","training"],"source_url":"local://generated/ai-training.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"airlock-double","tags":["shelter","airlock","door","structure"],"source_url":"local://generated/airlock-double.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"alarm-clock","tags":["real-world","time","alarm"],"source_url":"local://generated/alarm-clock.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"anomaly-spiral","tags":["hazard","anomaly","paranormal","unknown"],"source_url":"local://generated/anomaly-spiral.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"auth-badge","tags":["technology","security","auth"],"source_url":"local://generated/auth-badge.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"automation-pipeline","tags":["technology","automation","pipeline"],"source_url":"local://generated/automation-pipeline.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"barricade-planks","tags":["shelter","barricade","defense","structure"],"source_url":"local://generated/barricade-planks.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"battery-charger","tags":["real-world","power","charging"],"source_url":"local://generated/battery-charger.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"battery-empty","tags":["power","battery","energy","status"],"source_url":"local://generated/battery-empty.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"battery-full","tags":["power","battery","energy","level"],"source_url":"local://generated/battery-full.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"battery-half","tags":["power","battery","energy","level"],"source_url":"local://generated/battery-half.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"battery-quarter","tags":["power","battery","energy","level"],"source_url":"local://generated/battery-quarter.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"beacon-pulse","tags":["comms","beacon","signal","broadcast"],"source_url":"local://generated/beacon-pulse.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"bio-sample-dish","tags":["hazard","bio","sample","containment"],"source_url":"local://generated/bio-sample-dish.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"bunker-hatch-round","tags":["shelter","bunker","hatch","structure"],"source_url":"local://generated/bunker-hatch-round.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cable-splice","tags":["tool","cable","splice","network"],"source_url":"local://generated/cable-splice.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cache-layer","tags":["technology","cache","performance"],"source_url":"local://generated/cache-layer.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"calendar","tags":["real-world","date","schedule"],"source_url":"local://generated/calendar.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"capacitor-bank","tags":["power","capacitor","charge","electronics"],"source_url":"local://generated/capacitor-bank.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"chemical-vial","tags":["hazard","chemical","toxin","lab"],"source_url":"local://generated/chemical-vial.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"clipboard","tags":["real-world","notes","tasks"],"source_url":"local://generated/clipboard.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"clock-digital","tags":["real-world","time","digital"],"source_url":"local://generated/clock-digital.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cloud-download","tags":["technology","cloud","download"],"source_url":"local://generated/cloud-download.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cloud-upload","tags":["technology","cloud","upload"],"source_url":"local://generated/cloud-upload.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"coffee-mug","tags":["real-world","drink","break"],"source_url":"local://generated/coffee-mug.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"coffee-pot","tags":["real-world","appliance","coffee"],"source_url":"local://generated/coffee-pot.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"container-box","tags":["technology","container","deploy"],"source_url":"local://generated/container-box.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"contamination-splatter","tags":["hazard","contamination","spill","dirty"],"source_url":"local://generated/contamination-splatter.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"corrosive-drop","tags":["hazard","corrosive","acid","chemical"],"source_url":"local://generated/corrosive-drop.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cpu-core","tags":["technology","processor","compute"],"source_url":"local://generated/cpu-core.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cpu-load-high","tags":["technology","cpu","load"],"source_url":"local://generated/cpu-load-high.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"cpu-overclock","tags":["technology","processor","performance"],"source_url":"local://generated/cpu-overclock.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"credit-card","tags":["real-world","payment","finance"],"source_url":"local://generated/credit-card.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"data-pipeline","tags":["technology","data","pipeline"],"source_url":"local://generated/data-pipeline.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"data-shard","tags":["technology","database","sharding"],"source_url":"local://generated/data-shard.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"database-stack","tags":["technology","database","storage"],"source_url":"local://generated/database-stack.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"desk-lamp","tags":["real-world","lighting","desk"],"source_url":"local://generated/desk-lamp.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"diagnostic-probe","tags":["tool","diagnostic","probe","scan"],"source_url":"local://generated/diagnostic-probe.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"disk-activity","tags":["technology","storage","activity"],"source_url":"local://generated/disk-activity.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"disk-failure","tags":["technology","storage","error"],"source_url":"local://generated/disk-failure.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"door-basic","tags":["real-world","access","entry"],"source_url":"local://generated/door-basic.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"electrical-arc","tags":["hazard","electric","shock","warning"],"source_url":"local://generated/electrical-arc.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"encryption-key","tags":["technology","security","encryption"],"source_url":"local://generated/encryption-key.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"event-loop","tags":["technology","runtime","event"],"source_url":"local://generated/event-loop.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"fatigue-meter","tags":["survival","fatigue","stamina","status"],"source_url":"local://generated/fatigue-meter.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"firewall-shield","tags":["technology","security","firewall"],"source_url":"local://generated/firewall-shield.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"fuse-blown","tags":["power","fuse","failure","electronics"],"source_url":"local://generated/fuse-blown.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"garage","tags":["real-world","building","garage"],"source_url":"local://generated/garage.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"garage-door","tags":["real-world","garage","access"],"source_url":"local://generated/garage-door.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"garage-tools","tags":["real-world","garage","tools"],"source_url":"local://generated/garage-tools.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"generator-coil","tags":["power","generator","coil","machine"],"source_url":"local://generated/generator-coil.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"gpu-chip","tags":["technology","graphics","compute"],"source_url":"local://generated/gpu-chip.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"health-canister-critical","tags":["survival","health","critical","medical"],"source_url":"local://generated/health-canister-critical.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"health-canister-full","tags":["survival","health","status","medical"],"source_url":"local://generated/health-canister-full.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"heat-wave-thermo","tags":["hazard","heat","temperature","warning"],"source_url":"local://generated/heat-wave-thermo.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"hunger-ration-full","tags":["survival","hunger","food","status"],"source_url":"local://generated/hunger-ration-full.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"hunger-ration-low","tags":["survival","hunger","food","low"],"source_url":"local://generated/hunger-ration-low.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"hydration-tank-full","tags":["survival","hydration","water","status"],"source_url":"local://generated/hydration-tank-full.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"hydration-tank-low","tags":["survival","hydration","water","low"],"source_url":"local://generated/hydration-tank-low.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"infection-spore","tags":["survival","infection","bio","status"],"source_url":"local://generated/infection-spore.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"io-read-write","tags":["technology","io","disk"],"source_url":"local://generated/io-read-write.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"light-switch","tags":["real-world","power","control"],"source_url":"local://generated/light-switch.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"lockpick-set","tags":["tool","lockpick","security","access"],"source_url":"local://generated/lockpick-set.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"memory-leak","tags":["technology","memory","error"],"source_url":"local://generated/memory-leak.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"memory-ram","tags":["technology","memory","hardware"],"source_url":"local://generated/memory-ram.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"multi-tool-fold","tags":["tool","gear","multitool","utility"],"source_url":"local://generated/multi-tool-fold.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"network-hub","tags":["technology","network","hub"],"source_url":"local://generated/network-hub.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"network-latency","tags":["technology","network","latency"],"source_url":"local://generated/network-latency.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"network-mesh","tags":["technology","network","mesh"],"source_url":"local://generated/network-mesh.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"notebook-paper","tags":["real-world","notes","writing"],"source_url":"local://generated/notebook-paper.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"packet-drop","tags":["technology","network","error"],"source_url":"local://generated/packet-drop.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"packet-flow","tags":["technology","network","data"],"source_url":"local://generated/packet-flow.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"packet-route","tags":["comms","network","route","nodes"],"source_url":"local://generated/packet-route.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"permission-lock","tags":["technology","security","permissions"],"source_url":"local://generated/permission-lock.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"phone-handset","tags":["real-world","communication","phone"],"source_url":"local://generated/phone-handset.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"ping-target","tags":["comms","ping","target","ui"],"source_url":"local://generated/ping-target.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"power-outlet","tags":["real-world","power","electric"],"source_url":"local://generated/power-outlet.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"power-strip","tags":["real-world","power","utility"],"source_url":"local://generated/power-strip.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"process-fork","tags":["technology","process","os"],"source_url":"local://generated/process-fork.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"process-kill","tags":["technology","process","terminate"],"source_url":"local://generated/process-kill.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"queue-backlog","tags":["technology","queue","load"],"source_url":"local://generated/queue-backlog.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"radiation-burst","tags":["hazard","radiation","alert","energy"],"source_url":"local://generated/radiation-burst.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"reactor-core","tags":["power","reactor","nuclear","energy"],"source_url":"local://generated/reactor-core.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"repair-kit-box","tags":["tool","repair","kit","maintenance"],"source_url":"local://generated/repair-kit-box.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"sandbox-env","tags":["technology","security","sandbox"],"source_url":"local://generated/sandbox-env.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"scan-grid-sweep","tags":["scan","grid","terminal","ui"],"source_url":"local://generated/scan-grid-sweep.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"scheduler-clock","tags":["technology","automation","schedule"],"source_url":"local://generated/scheduler-clock.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"script-run","tags":["technology","automation","script"],"source_url":"local://generated/script-run.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"sealed-door-gasket","tags":["shelter","door","sealed","security"],"source_url":"local://generated/sealed-door-gasket.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"server-node","tags":["technology","server","infrastructure"],"source_url":"local://generated/server-node.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"server-sync","tags":["technology","server","sync"],"source_url":"local://generated/server-sync.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"shopping-cart","tags":["real-world","commerce","cart"],"source_url":"local://generated/shopping-cart.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"signal-loss","tags":["comms","signal","offline","loss"],"source_url":"local://generated/signal-loss.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"solder-iron","tags":["tool","solder","electronics","repair"],"source_url":"local://generated/solder-iron.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"sonar-sweep","tags":["comms","sonar","scan","radar"],"source_url":"local://generated/sonar-sweep.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"storage-box","tags":["real-world","storage","container"],"source_url":"local://generated/storage-box.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"storage-crate-x","tags":["shelter","storage","crate","supply"],"source_url":"local://generated/storage-crate-x.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"storage-shelf","tags":["real-world","storage","shelving"],"source_url":"local://generated/storage-shelf.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"supply-locker","tags":["shelter","storage","locker","utility"],"source_url":"local://generated/supply-locker.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"system-idle","tags":["technology","system","idle"],"source_url":"local://generated/system-idle.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"system-overload","tags":["technology","system","overload"],"source_url":"local://generated/system-overload.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"terminal-window","tags":["technology","terminal","ui"],"source_url":"local://generated/terminal-window.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"thermostat","tags":["real-world","climate","control"],"source_url":"local://generated/thermostat.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"thread-pool","tags":["technology","thread","process"],"source_url":"local://generated/thread-pool.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"toolbox","tags":["real-world","tools","storage"],"source_url":"local://generated/toolbox.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"trash-bin","tags":["real-world","cleanup","delete"],"source_url":"local://generated/trash-bin.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"triangulate-nodes","tags":["comms","scan","triangulate","location"],"source_url":"local://generated/triangulate-nodes.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"upgrade-chip","tags":["tool","upgrade","chip","electronics"],"source_url":"local://generated/upgrade-chip.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"uplink-dish","tags":["comms","uplink","satellite","terminal"],"source_url":"local://generated/uplink-dish.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"vent-grille","tags":["shelter","vent","maintenance","air"],"source_url":"local://generated/vent-grille.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"virtual-machine","tags":["technology","virtualization","vm"],"source_url":"local://generated/virtual-machine.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"wall-clock","tags":["real-world","time","clock"],"source_url":"local://generated/wall-clock.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"wallet","tags":["real-world","finance","storage"],"source_url":"local://generated/wallet.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"watchtower-sentry","tags":["shelter","tower","outpost","structure"],"source_url":"local://generated/watchtower-sentry.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"window","tags":["real-world","building","view"],"source_url":"local://generated/window.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false},{"icon_name":"wrench-double","tags":["tool","wrench","maintenance","repair"],"source_url":"local://generated/wrench-double.svg","license_summary":"User-generated (no third-party license)","license_note":"User-generated (no third-party license)","attribution_required":false}];
+      const grid = document.getElementById("grid");
+      const search = document.getElementById("search");
+      const counts = document.getElementById("counts");
+      const color = document.getElementById("color");
+      const size = document.getElementById("size");
+      const sizeValue = document.getElementById("sizeValue");
+      const resetOverrides = document.getElementById("resetOverrides");
+      const wheel = document.getElementById("colorWheel");
+      const indicator = document.getElementById("wheelIndicator");
+      const wheelContext = wheel.getContext("2d");
+      const wheelRadius = wheel.width / 2;
+      const svgCache = new Map();
+      const STORAGE_KEY = "tech-apocalypse-icon-preview-overrides-v1";
+      const overrides = loadOverrides();
+
+      async function getSvgMarkup(name) {
+        if (svgCache.has(name)) return svgCache.get(name);
+        const response = await fetch("./processed/" + name + ".svg");
+        const text = await response.text();
+        svgCache.set(name, text);
+        return text;
+      }
+
+      function render(list) {
+        grid.innerHTML = "";
+        list.forEach((icon) => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const actions = document.createElement("div");
+          actions.className = "cardActions";
+
+          const renameButton = document.createElement("button");
+          renameButton.type = "button";
+          renameButton.className = "cardButton";
+          renameButton.textContent = "Rename";
+          renameButton.addEventListener("click", () => handleRename(icon.file_name));
+
+          const deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.className = "cardButton cardButtonDanger";
+          deleteButton.textContent = "Delete";
+          deleteButton.addEventListener("click", () => handleDelete(icon.file_name));
+
+          actions.appendChild(renameButton);
+          actions.appendChild(deleteButton);
+
+          const iconWrap = document.createElement("div");
+          iconWrap.className = "icon";
+          iconWrap.setAttribute("role", "img");
+          iconWrap.setAttribute("aria-label", icon.display_name);
+          getSvgMarkup(icon.file_name).then((markup) => {
+            if (!iconWrap.isConnected) return;
+            iconWrap.innerHTML = markup;
+          });
+
+          const label = document.createElement("div");
+          label.className = "label";
+          label.textContent = icon.display_name;
+
+          const tags = document.createElement("div");
+          tags.className = "tags";
+          icon.tags.forEach((tag) => {
+            const chip = document.createElement("span");
+            chip.className = "tag";
+            chip.textContent = tag;
+            tags.appendChild(chip);
+          });
+
+          card.appendChild(actions);
+          card.appendChild(iconWrap);
+          card.appendChild(label);
+          card.appendChild(tags);
+          grid.appendChild(card);
+        });
+        counts.textContent = list.length + " of " + icons.length + " icons";
+      }
+
+      function filterIcons(query) {
+        const effective = applyOverrides(icons);
+        if (!query) return effective;
+        const value = query.toLowerCase();
+        return effective.filter((icon) => {
+          if (icon.display_name.includes(value)) return true;
+          return icon.tags.some((tag) => tag.includes(value));
+        });
+      }
+
+      function loadOverrides() {
+        try {
+          const raw = window.localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { renamed: {}, deleted: new Set() };
+          const parsed = JSON.parse(raw);
+          return {
+            renamed: parsed.renamed ?? {},
+            deleted: new Set(parsed.deleted ?? []),
+          };
+        } catch (error) {
+          return { renamed: {}, deleted: new Set() };
+        }
+      }
+
+      function saveOverrides() {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ renamed: overrides.renamed, deleted: Array.from(overrides.deleted) })
+        );
+      }
+
+      function isKebabCase(value) {
+        return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+      }
+
+      function applyOverrides(list) {
+        return list
+          .map((icon) => {
+            const file_name = icon.icon_name;
+            const display_name = overrides.renamed[file_name] ?? icon.icon_name;
+            return { ...icon, file_name, display_name };
+          })
+          .filter((icon) => !overrides.deleted.has(icon.file_name));
+      }
+
+      function handleRename(fileName) {
+        const current = overrides.renamed[fileName] ?? fileName;
+        const next = window.prompt("Rename icon (kebab-case):", current);
+        if (!next) return;
+        if (!isKebabCase(next)) {
+          window.alert("Name must be kebab-case (letters, numbers, dashes).");
+          return;
+        }
+        overrides.renamed[fileName] = next;
+        saveOverrides();
+        render(filterIcons(search.value.trim()));
+      }
+
+      function handleDelete(fileName) {
+        const confirmed = window.confirm("Remove this icon from the preview?");
+        if (!confirmed) return;
+        overrides.deleted.add(fileName);
+        saveOverrides();
+        render(filterIcons(search.value.trim()));
+      }
+
+      function hslToRgb(h, s, l) {
+        const c = (1 - Math.abs(2 * l - 1)) * s;
+        const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+        const m = l - c / 2;
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        if (h >= 0 && h < 60) {
+          r = c;
+          g = x;
+        } else if (h >= 60 && h < 120) {
+          r = x;
+          g = c;
+        } else if (h >= 120 && h < 180) {
+          g = c;
+          b = x;
+        } else if (h >= 180 && h < 240) {
+          g = x;
+          b = c;
+        } else if (h >= 240 && h < 300) {
+          r = x;
+          b = c;
+        } else {
+          r = c;
+          b = x;
+        }
+        return [
+          Math.round((r + m) * 255),
+          Math.round((g + m) * 255),
+          Math.round((b + m) * 255),
+        ];
+      }
+
+      function rgbToHsl(r, g, b) {
+        const rn = r / 255;
+        const gn = g / 255;
+        const bn = b / 255;
+        const max = Math.max(rn, gn, bn);
+        const min = Math.min(rn, gn, bn);
+        const delta = max - min;
+        let h = 0;
+        if (delta !== 0) {
+          if (max === rn) {
+            h = ((gn - bn) / delta) % 6;
+          } else if (max === gn) {
+            h = (bn - rn) / delta + 2;
+          } else {
+            h = (rn - gn) / delta + 4;
+          }
+          h = Math.round(h * 60);
+          if (h < 0) h += 360;
+        }
+        const l = (max + min) / 2;
+        const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        return { h, s, l };
+      }
+
+      function rgbToHex(r, g, b) {
+        return "#" + [r, g, b].map((value) => value.toString(16).padStart(2, "0")).join("");
+      }
+
+      function drawWheel() {
+        const size = wheel.width;
+        const image = wheelContext.createImageData(size, size);
+        for (let y = 0; y < size; y += 1) {
+          for (let x = 0; x < size; x += 1) {
+            const dx = x - wheelRadius;
+            const dy = y - wheelRadius;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const index = (y * size + x) * 4;
+            if (distance <= wheelRadius) {
+              const hue = (Math.atan2(dy, dx) * 180) / Math.PI + 180;
+              const saturation = distance / wheelRadius;
+              const [r, g, b] = hslToRgb(hue, saturation, 0.5);
+              image.data[index] = r;
+              image.data[index + 1] = g;
+              image.data[index + 2] = b;
+              image.data[index + 3] = 255;
+            } else {
+              image.data[index + 3] = 0;
+            }
+          }
+        }
+        wheelContext.putImageData(image, 0, 0);
+      }
+
+      function setIndicator(x, y) {
+        indicator.style.left = x + "px";
+        indicator.style.top = y + "px";
+      }
+
+      function setAccentFromHex(hex) {
+        const cleaned = hex.replace("#", "");
+        if (cleaned.length !== 6) return;
+        const r = parseInt(cleaned.slice(0, 2), 16);
+        const g = parseInt(cleaned.slice(2, 4), 16);
+        const b = parseInt(cleaned.slice(4, 6), 16);
+        const { h, s } = rgbToHsl(r, g, b);
+        const angle = (h * Math.PI) / 180;
+        const radius = s * wheelRadius;
+        setIndicator(wheelRadius + Math.cos(angle) * radius, wheelRadius + Math.sin(angle) * radius);
+        document.documentElement.style.setProperty("--accent", hex);
+      }
+
+      function updateFromPointer(event) {
+        const rect = wheel.getBoundingClientRect();
+        const x = event.clientX - rect.left - wheelRadius;
+        const y = event.clientY - rect.top - wheelRadius;
+        const distance = Math.sqrt(x * x + y * y);
+        if (distance > wheelRadius) return;
+        const hue = (Math.atan2(y, x) * 180) / Math.PI + 180;
+        const saturation = Math.min(distance / wheelRadius, 1);
+        const [r, g, b] = hslToRgb(hue, saturation, 0.5);
+        const hex = rgbToHex(r, g, b);
+        color.value = hex;
+        setIndicator(x + wheelRadius, y + wheelRadius);
+        document.documentElement.style.setProperty("--accent", hex);
+      }
+
+      search.addEventListener("input", (event) => {
+        render(filterIcons(event.target.value.trim()));
+      });
+
+      color.addEventListener("input", (event) => {
+        setAccentFromHex(event.target.value);
+      });
+
+      function setIconSize(value) {
+        const px = value + "px";
+        document.documentElement.style.setProperty("--icon-size", px);
+        sizeValue.textContent = px;
+      }
+
+      size.addEventListener("input", (event) => {
+        setIconSize(event.target.value);
+      });
+
+      resetOverrides.addEventListener("click", () => {
+        overrides.renamed = {};
+        overrides.deleted = new Set();
+        window.localStorage.removeItem(STORAGE_KEY);
+        render(filterIcons(search.value.trim()));
+      });
+
+      let dragging = false;
+      wheel.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        wheel.setPointerCapture(event.pointerId);
+        updateFromPointer(event);
+      });
+      wheel.addEventListener("pointermove", (event) => {
+        if (!dragging) return;
+        updateFromPointer(event);
+      });
+      wheel.addEventListener("pointerup", (event) => {
+        dragging = false;
+        wheel.releasePointerCapture(event.pointerId);
+      });
+      wheel.addEventListener("pointercancel", () => {
+        dragging = false;
+      });
+
+      drawWheel();
+      setAccentFromHex(color.value);
+      setIconSize(size.value);
+
+      render(filterIcons(search.value.trim()));
+    </script>
+  </body>
+</html>
