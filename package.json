@@ -1,6 +1,6 @@
 {
   "name": "tech-apocalypse-icons",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Retro-futurist terminal UI icon pack (SVG + React) with a searchable preview.",
   "license": "MIT",
   "type": "module",
@@ -40,10 +40,7 @@
   "bugs": {
     "url": "https://github.com/omiron33/tech-apocalypse-icons/issues"
   },
-  "scripts": {
-    "build": "node ../../scripts/icons-tech-apocalypse-package.mjs",
-    "prepublishOnly": "pnpm build"
-  },
+  "scripts": {},
   "peerDependencies": {
     "react": ">=18"
   }
